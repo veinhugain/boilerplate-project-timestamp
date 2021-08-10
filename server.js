@@ -32,10 +32,30 @@ app.get("/api/", function (req, res) {
 });
 //{ unix: 1451001600000, utc: "Fri, 25 Dec 2015 00:00:00 GMT" }
 app.get("/api/[0-9]{4}-[0-9]{2}-[0-9]{2}", function (req, res) {
+  console.log(Object.getOwnPropertyNames(req));
+  console.log(req.params);
+  console.log(req.url);
+  console.log(req._parsedOriginalUrl);
   let number = req.url.slice(5)
   let d = new Date(number);
   let n = d.getTime()
   let sd = ''+d.toUTCString()
+  const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+  // let md = 
+  console.log('tlds',d.toLocaleDateString(undefined, options)+'\n\n');
+  // console.log(md.getFullYear()+'\n\n');
+  // console.log(md.getHours()+'\n\n');
+  // console.log(md.getMonth()+'\n\n');
+  // console.log(md.getTime()+'\n\n');
+  // console.log(md.getDate()+'\n\n');
+  // // console.log(d.get()+'\n\n');
+  // console.log(d.get()+'\n\n');
+  // console.log(d.get()+'\n\n');
+
+  let f = new Intl.DateTimeFormat('en');
+   let a = f.formatToParts();
+   console.log(a);
+
   res.json({"unix":n, "utc":sd});
 });
 
